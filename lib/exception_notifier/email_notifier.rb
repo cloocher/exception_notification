@@ -27,7 +27,8 @@ module ExceptionNotifier
             @options    = options.reverse_merge(env['exception_notifier.options'] || {}).reverse_merge(default_options)
             @kontroller = env['action_controller.instance'] || MissingController.new
             @request    = ActionDispatch::Request.new(env)
-            @backtrace  = exception.backtrace ? clean_backtrace(exception) : []
+            # @backtrace  = exception.backtrace ? clean_backtrace(exception) : []
+            @backtrace  = exception.backtrace ? exception : []
             @sections   = @options[:sections]
             @data       = (env['exception_notifier.exception_data'] || {}).merge(options[:data] || {})
             @sections   = @sections + %w(data) unless @data.empty?
